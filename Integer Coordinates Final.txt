@@ -1,0 +1,32 @@
+import java.lang.Math;
+
+class Coordinates{
+	int x;
+	int y;
+    
+	public Coordinates(int xcoord, int ycoord){
+		x = xcoord;
+		y = ycoord;
+	}
+	
+	public int getXCoordinate(){
+		return x;
+	}
+	
+	public int getYCoordinate(){
+		return y;
+	}
+	
+	public void setXCoordinate(int xcoord){
+		x = xcoord;
+	}
+	
+	public void setYCoordinate(int ycoord){
+		y = ycoord;
+	}
+	
+	public void setCoordinates(int xcoord, int ycoord){
+		x = xcoord;
+		y = ycoord;
+	}
+}
