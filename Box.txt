@@ -87,7 +87,6 @@ class Box{
 				NE.setCoordinates(1,1);
 			}
 		}
-		//This one works
 		else if(currentAngle > 180 && currentAngle < 270){
 			oppositeAngle =  90-currentAngle;
 			adjustedCurrentAngle = currentAngle-180;
@@ -121,19 +120,12 @@ class Box{
 				return;
 			}
 		}
-		//Neither does this one; NEVER MIND IT WORKS NOW :D
 		else if(currentAngle > 270 && currentAngle < 360){
-			//Handle possible angle overflow?
 			oppositeAngle =  90-currentAngle;
 			adjustedCurrentAngle = currentAngle-270;
 			
 			if(adjustedCurrentAngle < 45){
-				//Look closer at these; should just be equalling 0 @ 271
-				
-				//becomes 0.034; THIS ONE WORKS
 				int xOffsetWidthWise = (int) (0.5+Math.abs(width*Math.tan(Math.toRadians(oppositeAngle))));
-				//becomes 0.069; THIS ONE DOES NOT WORK, YEILDS 229
-				//should be height*<everything else>; changed now
 				int yOffsetHeightWise = (int) (0.5+Math.abs(height*Math.tan(Math.toRadians(adjustedCurrentAngle))));
 
 				NW.setCoordinates(SW.getXCoordinate()-height, SW.getYCoordinate()+yOffsetHeightWise);
@@ -141,11 +133,7 @@ class Box{
 				NE.setCoordinates(SE.getXCoordinate()-height, SE.getYCoordinate()+yOffsetHeightWise);
 			}
 			else if(adjustedCurrentAngle > 45){
-				//Same problem with these
-				
-				//Works fine and yields 0
 				int yOffsetWidthWise = (int) (0.5+Math.abs(width/Math.tan(Math.toRadians(oppositeAngle))));
-				//Again yields 229; change to height/<everything else>; this works :D
 				int xOffsetHeightWise = (int) (0.5+Math.abs(height/Math.tan(Math.toRadians(adjustedCurrentAngle))));
 				System.out.println("yOffWW: " + yOffsetWidthWise + "    xOffHW: " + xOffsetHeightWise);
 
@@ -194,6 +182,60 @@ class Box{
 		System.out.println("NW: x = " + NW.getXCoordinate() + ", y = " + NW.getYCoordinate());
 		System.out.println("NE: x = " + NE.getXCoordinate() + ", y = " + NE.getYCoordinate());
 	}
+	public boolean checkCollision(){	
+		if(SW.getXCoordinate() < SE.getXCoordinate(){
+			if(NW.getYCoordinate > NE.getYCoordinate()){
+				collisionNW.setCoordinates(SW.getXCoordinate(), NW.getYCoordinate());
+				collisionNE.setCoordinates(NE.getXCoordinate(), NW.getYCoordinate());
+				collisionSW.setCoordinates(SE.getXCoordinate(), SW.getYCoordinate());
+				collisionSE.setCoordinates(NE.getXCoordinate(), SW.getYCoordinate());
+				//calc changes and offset for SE to SW
+				//calc changes offset for NE to NW
+				//calc changes and offset for SE to NE
+			}
+			//NW Y < NE Y
+			else{
+				collisionNW.setCoordinates(SE.getXCoordinate(), SW.getYCoordinate());
+				collisionNE.setCoordinates(NW.getXCoordinate(), SW.getYCoordinate());
+				collisionSW.setCoordinates(SE.getXCoordinate(), NE.getYCoordinate());
+				collisionSE.setCoordinates(NW.getXCoordinate(), NE.getYCoordinate());
+			}
+		}
+		else if(SW.getXCoordinate < SE.getXCoordinate()){
+			if(NW.getyCoordinate() > NE.getYCoordinate()){
+				collisionNW.setCoordinates(SE.getXCoordinate(), SW.getYCoordinate());
+				collisionNE.setCoordinates(NW.getXCoordinate(), SW.getYCoordinate());
+				collisionSW.setCoordinates(NW.getXCoordinate(), NE.getYCoordinate());
+				collisionSE.setCoordinates(SE.getXCoordinate(), NE.getYCoordinate());	
+			}
+			//NW Y < NE Y
+			else{
+				collisionNW.setCoordinates(NE.getXCoordinate(), NW.getYCoordinate());
+				collisionNE.setCoordinates(SW.getXCoordinate(), NW.getYCoordinate());
+				collisionSW.setCoordinates(NE.getXCoordinate(), SE.getYCoordinate());
+				collisionSE.setCoordinates(SW.getXCoordinate(), SE.getYCoordinate());	
+			}
+		}
+		//box is at an even angle
+		else{
+			if(box.getCurrentAngle() == 0){
+			
+			}
+			else if(box.getCurrentAngle() == 90){
+			
+			}
+			else if(box.getCurrentAngle() == 180){
+			
+			}
+			else if (box.getCurrentAngle() == 270){
+			
+			}
+			else{
+			
+			}
+		}
+	}
+}
 
 class main{
 	public static void main(String args[]){
