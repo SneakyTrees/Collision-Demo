@@ -189,9 +189,6 @@ class Box{
 				collisionNE.setCoordinates(NE.getXCoordinate(), NW.getYCoordinate());
 				collisionSW.setCoordinates(SE.getXCoordinate(), SW.getYCoordinate());
 				collisionSE.setCoordinates(NE.getXCoordinate(), SW.getYCoordinate());
-				//calc changes and offset for SE to SW
-				//calc changes offset for NE to NW
-				//calc changes and offset for SE to NE
 			}
 			//NW Y < NE Y
 			else{
@@ -216,26 +213,184 @@ class Box{
 				collisionSE.setCoordinates(SW.getXCoordinate(), SE.getYCoordinate());	
 			}
 		}
-		//box is at an even angle
+		//box is at an even angle; independent check based on particular angle
 		else{
-			if(box.getCurrentAngle() == 0){
-			
-			}
-			else if(box.getCurrentAngle() == 90){
-			
-			}
-			else if(box.getCurrentAngle() == 180){
-			
-			}
-			else if (box.getCurrentAngle() == 270){
-			
+		
+		}
+		
+		if((testPoint.getXCoordinate() >= collisionNW.getXCoordinate()) && (testPoint.getXCoordinate() <= collisionNE.getXCoordinate())
+		&&(testPoint.getYCoordinate() <= collisionNW.getYCoordinate()) && (testPoint.getYCoordinate() >= collisionSW.getYCoordinate())){
+			if(
+				//Corners of each box compared for collision within the other
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+				
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+				this.pointIsInTriangle();
+			)
+			{
+				return false;
 			}
 			else{
-			
+				return false;
 			}
 		}
 	}
-}
+	
+	public boolean pointIsInTriangle(Coordinates startPoint, Coordinates endPoint, boolean startSideBias, boolean upperSideBias){
+		//Calc angle multipliers
+		int angleMultiplierX;
+		int angleMultiplierY;
+		if(startPoint.getXCoordinate() > startPoint.getYCoordinate()){
+			angleMultiplierX = 1;
+			if(startPoint.getYCoordinate() > endPoint.getYCoordinate()){
+				angleMultiplierY = 1;
+			}
+			else{
+				angleMultiplierY = -1;
+			}
+		}
+		else{
+			angleMultiplierX = -1;
+			if(startPoint.getYCoordinate() > endPoint.getYCoordinate()){
+				angleMultiplierY = 1;
+			}
+			else{
+				angleMultiplierY = -1;
+			}
+		}
+		
+		//Attach angle multipliers to the +1*angleMult for these
+		int xOffset = Math.abs((startPoint.getXCoordinate()-endPoint.getXCoordinate())+1*angleMultiplierX);
+		int yOffset = Math.abs((startPoint.getYCoordinate()-endPoint.getYCoordinate())+1*angleMultiplierY);
+		
+		if(xOffset != yOffset){
+			int greaterOffset;
+			int lesserOffset;
+			if(xOffset > yOffset){
+				xOffsetGreater = true;
+				greaterOffset = xOffset;
+				lesserOffset = yOffset;
+			}
+			if(yOffset > xOffset){
+				xOffsetGreater = false;
+				greaterOffset = yOffset;
+				lesserOffset = xOffset;
+			}
+			
+			int[] changeList;
+			//Equal
+			if(greaterOffset%lesserOffset == 0){
+				int change = greaterOffset/lesserOffset;
+				int changeNum = greaterOffset/change;
+				
+				changeList = new int[changeNum];
+				for(int i = 0; i < changeList.length; i++){
+					changeList[i] = change;
+				}
+			}
+			//Inequal
+			else{
+				int greaterChangeNum = greaterOffset/lesserOffset;
+				int lesserChange = (greaterOffset-(greaterOffset%leserOffset))/lesserOffset;
+				int greaterChange = lesserChange+1;
+				int lesserChangeNum = (greaterOffset-(greaterChange*greaterChangeNum))/lesserChange;
+				
+				changeList = new int[greaterChangeNum+lesserChangeNum];
+				
+				int startChangeNum;
+				int middleChangeNum;
+				int endChangeNum;
+				if(lesserChangeNum%2 != 0){
+					if(startSideBias){
+						startChangeNum = (lesserChangeNum+1)/2;
+						endChangeNum = (lesserChangeNum-1)/2;
+					}
+					else{
+						startChangeNum = (lesserChangeNum-1)/2;
+						endChangeNum = (lesserChangeNum+1)/2;
+					}
+					for(int i = 0; i > startChange; i++){
+						changeList[i] = lesserChange;
+					}
+					for(int i = startChangeNum+1; i < middleChangeNum; i++){
+						changeList[i] = greaterChange;
+					}
+					for(int i = startChangeNum+middleChangeNum+1; i < endChangeNum; i++){
+						changeList[i] = lesserChange;
+					}
+				}	
+				else{
+					startChangeNum = lesserChangeNum/2;
+					middleChangeNum = greaterChangeNum;
+					endChangeNum = startChangeNum;
+					
+					for(int i = 0, int j = startChangeNum+middleChangeNum+1; i < startChangeNum; i++, j++){
+						changeList[i] = lesserChange;
+						changeList[j] = lesserChange;
+					}
+					for(int i = startChangeNum+1; i < middleChangeNum; i++){
+						changeList[i] = lesserChange;
+					}
+				}
+				
+				Coordinates tertiaryPoint;
+				if(upperSideBias){
+					tertiaryPoint.setCoordinates();
+					if(xOffsetGreater){
+						for(int i = 0; i < changeList.length; i++){
+							if(
+								
+							){
+							
+							}
+						}
+					}
+					else{
+						for(int i = 0; i < changeList.length; i++){
+							if(
+								
+							){
+							
+							}
+						}
+					}
+				}
+				else{
+				tertiaryPoint.setCoordinates();
+					if(xOffsetGreater){
+						for(int i = 0; i < changeList.length; i++){
+							if(
+								
+							){
+							
+							}
+						}
+					}
+					else{
+						for(int i = 0; i < changeList.length; i++){
+							if(
+								
+							){
+							
+							}
+						}
+					}
+				}
+			
+				return false;
+			}
+		}
+		//They are equal; special handling for dis one
+		else{
+		
+		}
+	}
+
 
 class main{
 	public static void main(String args[]){
