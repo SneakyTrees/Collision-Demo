@@ -164,12 +164,12 @@ public class Box{
 		//Later on just have these throw exceptions downwards to be caught later
 		if(perfLineStart.getX() == perfLineEnd.getX() &&
 		perfLineStart.getY() == perfLineEnd.getY()){
-			System.out.println("perfLien points are the same. The fuck m8.");
+			System.out.println("perfLien points are the same. ");
 		}
 		if(startPoint.getX() == endPoint.getX() &&
 		startPoint.getY() == endPoint.getY())
 		){
-			System.out.println("start/end points are the same. The fuck m8.");
+			System.out.println("start/end points are the same. ");
 		}
 		
 		boolean perfLineXWise;
@@ -194,7 +194,7 @@ public class Box{
 		}
 		else{
 			//Line is not perfect, throw excptn to be made later
-			System.out.println("Line is not perfect, you fucking pleblord. git gucci pls");
+			System.out.println("Line is not perfect");
 		}
 		
 		//Check distance to see if the testingPoint is too far away to be valid
